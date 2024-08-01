@@ -25,12 +25,12 @@
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
 
         @include('layouts.partials.header')
-
-        <main>
+        @yield('hero')
+        <main class="m-10">
             {{ $slot }}
         </main>
+        @include('layouts.partials.footer')
     </div>
-    @include('layouts.partials.footer')
 
     @stack('modals')
 
