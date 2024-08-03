@@ -23,6 +23,6 @@ Route::get('/dashboard', function () {
     return redirect('/');
 });
 
-Route::get('/{any}', function () {
-    return redirect('/');
-})->where('any', '.*');
+// Route::get('/{any}', function () {
+//     return redirect('/');
+// })->where('any', '.*');
