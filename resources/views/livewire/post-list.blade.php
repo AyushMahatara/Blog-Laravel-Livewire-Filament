@@ -1,9 +1,17 @@
 <div class=" px-3 lg:px-7 py-6">
     <div class="flex justify-between items-center border-b border-gray-100">
         <div class="">
+            @if ($this->activeCategory || $search)
+            <button class="text-white text-xs mr-3" wire:click="clearFilter()">X</button>
+            @endif
+            @if ($this->activeCategory)
+            <x-badge wire:navigate href="{{ route('posts.index', ['category' => $this->activeCategory->slug]) }}"
+                :textColor="$this->activeCategory->text_color" :bgColor="$this->activeCategory->bg_color">
+                {{ $this->activeCategory->title }}
+            </x-badge>
+            @endif
             @if ($search)
             <h3 class="text-lg font-semibold text-gray-500 mb-3">Search results for {{ $search }}</h3>
-
             @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">
