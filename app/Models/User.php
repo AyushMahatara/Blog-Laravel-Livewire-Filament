@@ -3,14 +3,16 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Filament\Panel;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Filament\Models\Contracts\FilamentUser;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable  implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -18,15 +20,37 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_USER = 'USER';
+    const ROLE_EDITOR = 'EDITOR';
+
+    const ROLES = [
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_USER => 'User',
+        self::ROLE_EDITOR => 'Editor',
+    ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->can('viewAdmin', User::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === self::ROLE_ADMIN;
+    }
+
+    public function isEditor()
+    {
+        return $this->role === self::ROLE_EDITOR;
+    }
+
     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
