@@ -23,6 +23,7 @@ use Filament\Forms\Components\DateTimePicker;
 use App\Filament\Resources\PostResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\PostResource\RelationManagers;
+use App\Filament\Resources\PostResource\RelationManagers\CommentsRelationManager;
 use Filament\Tables\Columns\ImageColumn;
 
 class PostResource extends Resource
@@ -47,7 +48,7 @@ class PostResource extends Resource
                                 $set('slug', Str::slug($state));
                             }
                         ),
-                    TextInput::make('slug')->required()->unique(ignoreRecord: true)->disabled(fn (?string $operation) => $operation === 'edit'),
+                    TextInput::make('slug')->required()->unique(ignoreRecord: true)->disabled(fn(?string $operation) => $operation === 'edit'),
                     RichEditor::make('body')->required()->fileAttachmentsDirectory('post/images')->columnSpanFull(),
                 ])->columns(2),
                 Section::make('Meta')->schema([
@@ -91,7 +92,7 @@ class PostResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            CommentsRelationManager::class,
         ];
     }
 

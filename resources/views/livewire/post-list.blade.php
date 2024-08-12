@@ -18,6 +18,8 @@
             @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">
+            <x-checkbox wire:model='popular' />
+            <x-label>Popular</x-label>
             <button
                 class="{{ $sort === 'desc' ? 'text-white border-b-2 border-indigo-400 dark:border-indigo-600 ' : 'text-gray-500 py-4 border-b border-gray-700' }} "
                 wire:click="setSort('desc')">Latest</button>
@@ -28,7 +30,7 @@
     </div>
     <div class="py-4">
         @foreach ($this->posts as $post)
-        <x-posts.post-item :post="$post" />
+        <x-posts.post-item :key="$post->id" :post="$post" />
 
         @endforeach
     </div>
