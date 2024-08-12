@@ -18,7 +18,7 @@
             @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">
-            <x-checkbox wire:model='popular' />
+            <x-checkbox wire:model.live='popular' />
             <x-label>Popular</x-label>
             <button
                 class="{{ $sort === 'desc' ? 'text-white border-b-2 border-indigo-400 dark:border-indigo-600 ' : 'text-gray-500 py-4 border-b border-gray-700' }} "
@@ -30,7 +30,7 @@
     </div>
     <div class="py-4">
         @foreach ($this->posts as $post)
-        <x-posts.post-item :key="$post->id" :post="$post" />
+        <x-posts.post-item wire:key="{{$post->id}}" :post="$post" />
 
         @endforeach
     </div>
