@@ -8,7 +8,7 @@
         <div class="top-menu ml-10">
             <div class="flex space-x-4">
                 <x-nav-link href="{{ route('home') }}" :active="request()->routeIs('home')">
-                    {{ __('Home') }}
+                    {{ __('ome') }}
                 </x-nav-link>
 
                 <x-nav-link href="{{ route('posts.index') }}" :active="request()->routeIs('posts.index')">

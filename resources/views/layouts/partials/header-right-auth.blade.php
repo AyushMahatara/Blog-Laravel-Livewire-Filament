@@ -2,7 +2,7 @@
     @can('viewAdmin', App\Models\User::class)
     <x-nav-link :navigate='false' href="{{ route('filament.admin.auth.login') }}"
         :active="request()->routeIs('filament.admin.auth.login')">
-        {{ __('Admin') }}
+        {{ __('menu.admin') }}
     </x-nav-link>
     @endcan
     <x-dropdown align="right" width="48">
